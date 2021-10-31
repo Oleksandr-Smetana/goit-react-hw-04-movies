@@ -64,10 +64,13 @@ export default function HomeView() {
         }
       />
       <InputForm onSubmit={onSubmit} />
-
-      <Suspense fallback={<Loader />}>
-        <MoviesList movies={searchedMovies} />
-      </Suspense>
+      {searchedMovies && searchedMovies.length !== 0 ? (
+        <Suspense fallback={<Loader />}>
+          <MoviesList movies={searchedMovies} />
+        </Suspense>
+      ) : (
+        <p></p>
+      )}
     </>
   );
 }

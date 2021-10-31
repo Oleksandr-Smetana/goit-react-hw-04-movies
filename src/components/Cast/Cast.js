@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getMovieCast } from '../../apiServises/MoviedbAPI';
+import defaultImages from '../../defaultImages/defaultPhoto.jpg';
+
+import s from './Cast.module.css';
 
 export default function MovieCast({ movieId }) {
   const [cast, setCast] = useState(null);
@@ -11,21 +14,32 @@ export default function MovieCast({ movieId }) {
   }, [movieId]);
 
   console.log(cast);
-  return (
-    <>
-      {cast &&
-        cast.map(actor => {
-          return (
-            <li key={actor.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`}
-                alt={actor.name}
-              />
-              <p>Actor: {actor.name}</p>
-              <p>Character: {actor.character}</p>
-            </li>
-          );
-        })}
-    </>
+  return cast && cast.length !== 0 ? (
+    <ul className={s.cast}>
+      {cast.map(actor => {
+        return (
+          <li className={s.castItem} key={actor.id}>
+            <img
+              className={s.photo}
+              src={
+                actor.profile_path
+                  ? `https://image.tmdb.org/t/p/w200/${actor.profile_path}`
+                  : defaultImages
+              }
+              alt={actor.name}
+            />
+            <p className={s.castInfo}>
+              Actor: {actor.name}
+              <br />
+              Character: {actor.character}
+            </p>
+          </li>
+        );
+      })}
+    </ul>
+  ) : (
+    <p className={s.defaultMessage}>
+      Cast is not available.
+    </p>
   );
 }

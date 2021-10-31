@@ -1,0 +1,101 @@
+.button {
+  margin-bottom: 10px;
+  min-width: 100px;
+  height: 40px;
+
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(30, 0, 0);
+
+  background-color: rgb(238, 213, 143);
+  border: 1px solid rgba(122, 122, 122, 0.5);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:focus,
+.button:hover {
+  color: rgb(190, 28, 0);
+}
+
+.mainWrapper {
+  display: flex;
+}
+
+.poster {
+  width: 300px;
+  height: 450px;
+  margin-right: 10px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.mainInfo {
+  font-size: 20px;
+  color: rgb(30, 0, 0);
+}
+
+.title {
+  margin: -50px 10px 10px 0;
+
+  text-align: end;
+}
+
+.genres {
+  margin-bottom: 10px;
+}
+
+.rating {
+  margin-bottom: 10px;
+}
+
+.overview {
+  margin-bottom: 10px;
+}
+
+.addWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 20px 20px;
+  background-color: rgb(30, 0, 0);
+  border-radius: 5px;
+}
+
+.addInfo {
+  font-size: 20px;
+  font-weight: 700;
+  color: beige;
+}
+
+.addLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  min-width: 100px;
+  height: 40px;
+
+  background-color: rgb(238, 213, 143);
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 5px;
+}
+
+.addItem h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: rgb(30, 0, 0);
+}
+
+.addItem h4:focus,
+.addItem h4:hover {
+  color: rgb(190, 28, 0);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}

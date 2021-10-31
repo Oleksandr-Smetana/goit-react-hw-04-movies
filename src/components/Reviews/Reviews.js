@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getMovieReviews } from '../../apiServises/MoviedbAPI';
 
+import s from './Reviews.module.css';
+
 export default function MovieReviews({ movieId }) {
   const [reviews, setReviews] = useState(null);
 
@@ -13,17 +15,23 @@ export default function MovieReviews({ movieId }) {
   console.log(reviews);
   return (
     <>
-      {reviews && (
-        <ul>
+      {reviews && reviews.length !== 0 ? (
+        <ul className={s.reviewsList}>
           {reviews.map(review => {
             return (
-              <li key={review.id}>
-                <h4>Author: {review.author}</h4>
-                <p>{review.content}</p>
+              <li className={s.reviewsItem} key={review.id}>
+                <h4 className={s.reviewsAuthor}>
+                  Author: {review.author}
+                </h4>
+                <p className={s.reviewsContent}>
+                  {review.content}
+                </p>
               </li>
             );
           })}
         </ul>
+      ) : (
+        <p className={s.defaultMessage}>No reviews yet.</p>
       )}
     </>
   );

@@ -3,6 +3,9 @@ import {
   useRouteMatch,
   useHistory,
 } from 'react-router-dom';
+import defaultPoster from '../../defaultImages/defaultPoster.jpg';
+
+import s from './MovieInfo.module.css';
 
 export default function MovieInfo({ movieInfo }) {
   const { url } = useRouteMatch();
@@ -21,43 +24,59 @@ export default function MovieInfo({ movieInfo }) {
 
   return (
     <>
-      <button type="button" onClick={onGoBack}>
-        Go back
+      <button
+        className={s.button}
+        type="button"
+        onClick={onGoBack}
+      >
+        &#8678; Go back
       </button>
       {movieInfo && (
-        <div>
+        <div className={s.mainWrapper}>
           <img
-            src={`https://image.tmdb.org/t/p/w500/${movieInfo.poster_path}`}
+            className={s.poster}
+            src={
+              movieInfo.poster_path
+                ? `https://image.tmdb.org/t/p/w500/${movieInfo.poster_path}`
+                : defaultPoster
+            }
             loading="lazy"
             alt={movieInfo.title}
           />
-          <div>
-            <h2>{movieInfo.title}</h2>
-            <p>
+          <div className={s.mainInfo}>
+            <h2 className={s.title}>{movieInfo.title}</h2>
+            <p className={s.genres}>
               Genres:{' '}
               {movieInfo.genres
                 .map(({ name }) => name)
                 .join(', ')}
             </p>
-            <p>Movie rating: {movieInfo.vote_average}</p>
-            <p>{movieInfo.overview}</p>
+            <p className={s.rating}>
+              Movie rating: {movieInfo.vote_average}
+            </p>
+            <p className={s.overview}>
+              {movieInfo.overview}
+            </p>
           </div>
         </div>
       )}
-      <hr />
-      <h3>Additional information:</h3>
-      <ul>
-        <li>
-          <Link to={`${url}/cast`}>
-            <h4>Cast</h4>
-          </Link>
-        </li>
-        <li>
-          <Link to={`${url}/reviews`}>
-            <h4>Reviews</h4>
-          </Link>
-        </li>
-      </ul>
+      <div className={s.addWrapper}>
+        <h3 className={s.addInfo}>
+          Additional information:
+        </h3>
+        <ul className={s.addLinks}>
+          <li className={s.addItem}>
+            <Link to={`${url}/cast`}>
+              <h4>Cast</h4>
+            </Link>
+          </li>
+          <li className={s.addItem}>
+            <Link to={`${url}/reviews`}>
+              <h4>Reviews</h4>
+            </Link>
+          </li>
+        </ul>
+      </div>
     </>
   );
 }

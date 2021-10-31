@@ -1,0 +1,37 @@
+.formWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form {
+  font-size: 20px;
+}
+
+.input {
+  width: 300px;
+  height: 40px;
+  padding-left: 6px;
+
+  font-size: 16px;
+  color: rgb(30, 0, 0);
+  border: 1px solid rgba(122, 122, 122, 0.5);
+  border-radius: 5px 0px 0px 5px;
+}
+
+.button {
+  height: 40px;
+
+  font-size: 16px;
+  color: rgb(30, 0, 0);
+
+  background-color: rgb(238, 213, 143);
+  border: 1px solid rgba(122, 122, 122, 0.5);
+  border-radius: 0px 5px 5px 0px;
+}
+
+.button:focus,
+.button:hover {
+  color: rgb(190, 28, 0);
+}

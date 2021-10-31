@@ -3,6 +3,8 @@ import { useLocation, useHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
+import s from './InputForm.module.css';
+
 export default function InputForm({ onSubmit }) {
   const [movieQuery, setMovieQuery] = useState('');
   const location = useLocation();
@@ -30,21 +32,26 @@ export default function InputForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmitButton}>
-      <input
-        // className="input"
-        value={movieQuery}
-        onChange={onInputChange}
-        type="text"
-        autoComplete="off"
-        autoFocus
-        placeholder="Search movies"
-      />
+    <div className={s.formWrapper}>
+      <form
+        className={s.form}
+        onSubmit={handleSubmitButton}
+      >
+        <input
+          className={s.input}
+          value={movieQuery}
+          onChange={onInputChange}
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search movies"
+        />
 
-      <button type="submit">
-        <span>Search</span>
-      </button>
-    </form>
+        <button className={s.button} type="submit">
+          <span>Search</span>
+        </button>
+      </form>
+    </div>
   );
 }
 

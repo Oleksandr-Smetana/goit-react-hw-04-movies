@@ -36,7 +36,7 @@ export default function MovieDetailsView() {
   return (
     <>
       {movieDetails && (
-        <PageHeading text={movieDetails.title} />
+        <PageHeading text={'Movie details'} />
       )}
 
       <Route path={`${path}`}>

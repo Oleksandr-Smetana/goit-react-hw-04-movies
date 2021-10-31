@@ -18,8 +18,8 @@ export default function HomeView() {
   // console.log(trendingMovies);
   return (
     <>
-      <PageHeading text="Popular movies in this week" />
-      <MoviesList movies={trendingMovies} />;
+      <PageHeading text="Popular movies this week" />
+      <MoviesList movies={trendingMovies} />
     </>
   );
 }
