@@ -20,7 +20,9 @@ export default function InputForm({ onSubmit }) {
     e.preventDefault();
 
     if (movieQuery.trim() === '') {
-      return toast.warn('Please enter your query!');
+      return toast.warn(
+        'Please type at least one character!',
+      );
     }
 
     onSubmit(movieQuery);

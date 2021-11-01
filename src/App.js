@@ -7,14 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import s from './App.module.css';
 import AppBar from './components/AppBar';
-import HomePage from './pages/HomePage';
+// import HomePage from './pages/HomePage';
 
-// const HomePage = lazy(() =>
-//   import(
-//     './pages/HomePage'
-//     /* webpackChunkName: "home-page" */
-//   ),
-// );
+const HomePage = lazy(() =>
+  import(
+    './pages/HomePage'
+    /* webpackChunkName: "home-page" */
+  ),
+);
 const MoviesPage = lazy(() =>
   import(
     './pages/MoviesPage'
@@ -39,29 +39,25 @@ export default function App() {
     <div className={s.App}>
       <AppBar />
 
-      <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
+      <Suspense fallback={<Loader />}>
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
 
-        <Route exact path="/movies">
-          <Suspense fallback={<Loader />}>
+          <Route exact path="/movies">
             <MoviesPage />
-          </Suspense>
-        </Route>
+          </Route>
 
-        <Route path="/movies/:movieId">
-          <Suspense fallback={<Loader />}>
+          <Route path="/movies/:movieId">
             <MovieDetailsPage />
-          </Suspense>
-        </Route>
+          </Route>
 
-        <Route>
-          <Suspense fallback={<Loader />}>
+          <Route>
             <NotFoundPage />
-          </Suspense>
-        </Route>
-      </Switch>
+          </Route>
+        </Switch>
+      </Suspense>
 
       <ToastContainer
         autoClose={4000}

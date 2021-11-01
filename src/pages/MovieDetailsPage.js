@@ -5,9 +5,9 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 
-import Loader from '../components/Loader';
 import { getMovieDetails } from '../apiServises/MoviedbAPI';
 
+import Loader from '../components/Loader';
 import PageHeading from '../components/PageHeading';
 import MovieInfo from '../components/MovieInfo';
 

@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { getMovieReviews } from '../../apiServises/MoviedbAPI';
 
 import s from './Reviews.module.css';
@@ -12,7 +14,7 @@ export default function MovieReviews({ movieId }) {
     );
   }, [movieId]);
 
-  console.log(reviews);
+  // console.log(reviews);
   return (
     <>
       {reviews && reviews.length !== 0 ? (
@@ -36,3 +38,7 @@ export default function MovieReviews({ movieId }) {
     </>
   );
 }
+
+MovieReviews.propTypes = {
+  movieId: PropTypes.string.isRequired,
+};

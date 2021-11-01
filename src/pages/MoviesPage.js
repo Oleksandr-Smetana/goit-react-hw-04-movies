@@ -1,8 +1,11 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
-import { useLocation } from 'react-router';
+import {
+  useRouteMatch,
+  useLocation,
+  useHistory,
+} from 'react-router-dom';
 
 import Loader from '../components/Loader';
-import { toast } from 'react-toastify';
 
 import { getMoviesBySearch } from '../apiServises/MoviedbAPI';
 import PageHeading from '../components/PageHeading';
@@ -16,60 +19,53 @@ const MoviesList = lazy(() =>
 );
 
 export default function HomeView() {
-  const [inputValue, setInputValue] = useState('');
   const [searchedMovies, setSearchedMovies] =
     useState(null);
+  const { url } = useRouteMatch();
   const location = useLocation();
+  const history = useHistory();
+
+  const searchQuery =
+    new URLSearchParams(location.search).get('query') ?? '';
 
   useEffect(() => {
-    const searchQuery = new URLSearchParams(
-      location.search,
-    ).get('query');
+    searchQuery &&
+      getMoviesBySearch(searchQuery).then(mowiesList => {
+        setSearchedMovies(mowiesList.results);
+        mowiesList.results.length === 0 &&
+          history.push({ ...location, search: '' });
+      });
+  }, [history, location, searchQuery]);
 
-    if (searchQuery === null) {
-      return;
-    }
-
-    setInputValue(searchQuery);
-  }, [location]);
-
-  useEffect(() => {
-    if (!inputValue) {
-      return;
-    }
-    // фетч фильмов по запросу
-    getMoviesBySearch(inputValue).then(mowiesList => {
-      if (mowiesList.results.length === 0) {
-        toast.error(
-          `No movies with query: "${inputValue}".`,
-        );
-        return;
-      }
-      setSearchedMovies(mowiesList.results);
-    });
-  }, [inputValue]);
-
-  // запись запроса фильма в стейт
+  // запись запроса в свойство search location
   const onSubmit = movieQuery => {
-    setInputValue(movieQuery);
+    movieQuery &&
+      history.push({
+        ...location,
+        search: `query=${movieQuery}`,
+      });
   };
 
   return (
     <>
       <PageHeading
         text={
-          inputValue
-            ? `Results by query: "${inputValue}"`
-            : 'Please enter your query'
+          searchedMovies
+            ? searchedMovies.length !== 0
+              ? `Results by query: "${searchQuery}"`
+              : 'There are no results for your query.'
+            : 'Please enter your query.'
         }
       />
       <InputForm onSubmit={onSubmit} />
-      {searchedMovies && searchedMovies.length !== 0 ? (
+      {searchedMovies && searchedMovies.length !== 0 && (
         <Suspense fallback={<Loader />}>
-          <MoviesList movies={searchedMovies} />
+          <MoviesList
+            movies={searchedMovies}
+            url={url}
+            location={location}
+          />
         </Suspense>
-      ) : (
-        <p></p>
       )}
     </>
   );

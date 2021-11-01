@@ -1,25 +1,38 @@
+import { useState, useEffect } from 'react';
 import {
   Link,
   useRouteMatch,
   useHistory,
+  useLocation,
 } from 'react-router-dom';
-import defaultPoster from '../../defaultImages/defaultPoster.jpg';
+import PropTypes from 'prop-types';
 
+import defaultPoster from '../../defaultImages/defaultPoster.jpg';
 import s from './MovieInfo.module.css';
 
 export default function MovieInfo({ movieInfo }) {
+  const [locationState, setLocationState] = useState(null);
   const { url } = useRouteMatch();
+  const location = useLocation();
   const history = useHistory();
 
-  const onGoBack = () => {
-    const pathName = history.location.pathname;
-    if (
-      pathName.includes('cast') ||
-      pathName.includes('reviews')
-    ) {
-      history.go(-1);
+  useEffect(() => {
+    if (location && location.state && location.state.from) {
+      !Object.keys(location.state.from).includes(
+        'locationState',
+      ) &&
+        setLocationState(prevLocationState => ({
+          ...prevLocationState,
+          ...location.state.from,
+        }));
     }
-    history.goBack();
+  }, [location]);
+
+  // переход на предыдущую страницу при клике на кнопку "Go back"
+  const onGoBack = () => {
+    locationState
+      ? history.push(locationState)
+      : history.push('/');
   };
 
   return (
@@ -80,3 +93,7 @@ export default function MovieInfo({ movieInfo }) {
     </>
   );
 }
+
+MovieInfo.propTypes = {
+  movieDetails: PropTypes.func,
+};

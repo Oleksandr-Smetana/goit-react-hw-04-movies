@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getMovieCast } from '../../apiServises/MoviedbAPI';
-import defaultImages from '../../defaultImages/defaultPhoto.jpg';
+import PropTypes from 'prop-types';
 
+import { getMovieCast } from '../../apiServises/MoviedbAPI';
+
+import defaultImages from '../../defaultImages/defaultPhoto.jpg';
 import s from './Cast.module.css';
 
 export default function MovieCast({ movieId }) {
@@ -13,7 +15,7 @@ export default function MovieCast({ movieId }) {
     );
   }, [movieId]);
 
-  console.log(cast);
+  // console.log(cast);
   return cast && cast.length !== 0 ? (
     <ul className={s.cast}>
       {cast.map(actor => {
@@ -43,3 +45,7 @@ export default function MovieCast({ movieId }) {
     </p>
   );
 }
+
+MovieCast.propTypes = {
+  movieId: PropTypes.string.isRequired,
+};
